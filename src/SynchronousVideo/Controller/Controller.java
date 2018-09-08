@@ -55,7 +55,7 @@ public class Controller {
     }
 
     public void sendMessage() {
-        Server.sendMessage(userIn.getText());
+        Server.sendServerMessage(userIn.getText());
         showOutMessage();
     }
 

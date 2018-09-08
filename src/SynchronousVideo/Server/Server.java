@@ -25,6 +25,8 @@ public class Server implements Runnable{
    // setup the server
    public Server (int port, Controller controller) {
       this.controller = controller;
+      outStreams = new HashSet<DataOutputStream>();
+      inStreams = new HashSet<DataInputStream>();
       try {
          controller.showNotification("Setting up server...");
          server = new ServerSocket(port);
@@ -48,14 +50,14 @@ public class Server implements Runnable{
    public void waitConnection() throws IOException {
        while(true) {
            connection = server.accept();
-           SocketThread socket = new SocketThread(connection, controller);
+           SocketThreads socket = new SocketThreads(connection, controller);
            Thread thread = new Thread(socket);
            thread.start();
        }
    }
 
    // Close server
-   public void closeConnection(){
+   public static void closeConnection(){
        try {
            server.close();
        } catch (IOException e) {
@@ -64,7 +66,7 @@ public class Server implements Runnable{
    }
 
     // Send message from server to all clients on send button click
-    private static void sendServerMessage(String message) {
+    public static void sendServerMessage(String message) {
         for(DataOutputStream send: outStreams) {
             try {
                 send.writeUTF(message);
@@ -97,6 +99,10 @@ public class Server implements Runnable{
                while (!connection.isClosed()) {
                    try {
                        message = inMessage.readUTF();
+                       if(message.equalsIgnoreCase("client - end")) {
+                           closeConnection();
+                           break;
+                       }
                        controller.showInMessage(message);
                        sendClientMessage(message);
                    } catch (IOException e) {
@@ -115,13 +121,14 @@ public class Server implements Runnable{
            }
        }
 
-       private void closeConnectio() {
+       private void closeConnection() {
            try {
                inStreams.remove(inMessage);
-               outStreams.remove(outMessage)
+               outStreams.remove(outMessage);
                inMessage.close();
                outMessage.close();
                connection.close();
+               controller.showNotification("A client ended connection");
            } catch (IOException e) {
                e.printStackTrace();
            }
