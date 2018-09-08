@@ -24,6 +24,7 @@ public class Controller {
     @FXML TextArea message;
     @FXML TextField userIn;
 
+    // Show message sent from server
     public void showOutMessage() {
         Platform.runLater(new Runnable() {
             @Override
@@ -34,6 +35,7 @@ public class Controller {
         });
     }
 
+    // Show message from client to server
     public void showInMessage(String mess) {
         Platform.runLater(new Runnable() {
             @Override
