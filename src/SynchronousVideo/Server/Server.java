@@ -11,7 +11,7 @@ import java.net.Socket;
 
 
 // Developing server for 1 client
-public class Server {
+public class Server implements Runnable{
    //private static DataInputStream inMessage;
    private static DataOutputStream outMessage;
    private static ServerSocket server;
@@ -30,9 +30,8 @@ public class Server {
          System.out.println("Socket is not available");
       }
    }
-
-   // Server setup for 1 use
-   public void setConnection() {
+   @Override
+   public void run() {
       try {
          waitConnection();
          setupStream();
@@ -41,8 +40,9 @@ public class Server {
       }
    }
 
+
    public void waitConnection() throws IOException{
-      System.out.println("Waiting for connection...");
+      controller.showNotification("Waiting for connection...");
       connection = server.accept();
       System.out.println("Connected to:" + connection.getRemoteSocketAddress());
       SocketThread socket = new SocketThread(connection, controller);

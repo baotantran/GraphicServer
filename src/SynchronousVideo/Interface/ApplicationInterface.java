@@ -20,11 +20,9 @@ public class ApplicationInterface extends Application {
         Parent root = (AnchorPane) fxmlLoader.load();
         controller = fxmlLoader.<Controller>getController();
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 424, 538));
+        primaryStage.setScene(new Scene(root, 503, 538));
         primaryStage.show();
 
-        Server server = new Server(5678, controller);
-        //server.setConnection();
     }
 
     public static void main(String[] args) {
