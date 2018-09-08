@@ -50,7 +50,6 @@ public class Controller {
                 message.appendText(mess + "\n");
             }
         });
-
     }
 
     public void sendMessage() {
@@ -64,4 +63,5 @@ public class Controller {
         Thread t = new Thread(server);
         t.start();
     }
+
 }

@@ -23,11 +23,11 @@ public class Server implements Runnable{
    public Server (int port, Controller controller) {
       this.controller = controller;
       try {
-         System.out.println("Setting up server...");
+         controller.showNotification("Setting up server...");
          server = new ServerSocket(port);
       } catch (IOException e) {
          e.printStackTrace();
-         System.out.println("Socket is not available");
+         controller.showNotification("Socket is not available");
       }
    }
    @Override
@@ -44,7 +44,7 @@ public class Server implements Runnable{
    public void waitConnection() throws IOException{
       controller.showNotification("Waiting for connection...");
       connection = server.accept();
-      System.out.println("Connected to:" + connection.getRemoteSocketAddress());
+      controller.showNotification("Connected to:" + connection.getRemoteSocketAddress());
       SocketThread socket = new SocketThread(connection, controller);
       Thread t = new Thread(socket);
       t.start();
@@ -61,10 +61,10 @@ public class Server implements Runnable{
 
 
    public void setupStream() throws IOException {
-      System.out.println("Setting up output stream");
+      controller.showNotification("Setting up output stream");
       //inMessage = new DataInputStream(connection.getInputStream());
       outMessage = new DataOutputStream(connection.getOutputStream());
-      System.out.println("Output stream is setup!");
+      controller.showNotification("Output stream is setup!");
    }
 
 
@@ -81,7 +81,6 @@ public class Server implements Runnable{
          }
       } else {
          controller.showNotification("The connection is closed");
-         controller.showNotification("Waiting for next connection...");
       }
    }
 

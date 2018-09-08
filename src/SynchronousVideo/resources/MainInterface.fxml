@@ -16,7 +16,7 @@
          <children>
             <TextArea fx:id="message" prefHeight="200.0" prefWidth="504.0" />
             <TextField fx:id="userIn" layoutY="200.0" prefHeight="40.0" prefWidth="345.0" />
-            <Button layoutX="345.0" layoutY="200.0" mnemonicParsing="false" onAction="#showOutMessage" prefHeight="40.0" prefWidth="79.0" text="Send" />
+            <Button layoutX="345.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="40.0" prefWidth="79.0" text="Send" />
             <Button layoutX="424.0" layoutY="200.0" mnemonicParsing="false" onAction="#startServer" prefHeight="40.0" prefWidth="79.0" text="Start" />
          </children>
       </AnchorPane>
