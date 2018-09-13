@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ApplicationInterface extends Application {
@@ -16,13 +17,10 @@ public class ApplicationInterface extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/SynchronousVideo/resources/MainInterface.fxml"));
-        Parent root = (AnchorPane) fxmlLoader.load();
-        controller = fxmlLoader.<Controller>getController();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 503, 538));
+        Parent root = FXMLLoader.load(getClass().getResource("/SynchronousVideo/resources/MainInterface.fxml"));
+        primaryStage.setTitle("Synchronous Video Chat");
+        primaryStage.setScene(new Scene(root, 500, 600));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
