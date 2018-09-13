@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraphicServer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Interface/ApplicationInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Interface/ApplicationInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/resources/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/resources/MainInterface.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SynchronousVideo/Controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SynchronousVideo/Server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/resources/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/SynchronousVideo/resources/MainInterface.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -106,7 +91,7 @@
     <session id="514527666">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="3" />
@@ -144,11 +129,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-end-line="31" />
+            <state relative-caret-position="493">
+              <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -156,11 +141,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="754">
-              <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+            <state relative-caret-position="91">
+              <caret line="17" column="38" lean-forward="true" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -171,8 +156,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="31" column="9" selection-end-line="171" />
+            <state relative-caret-position="340">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -184,8 +169,8 @@
         <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/resources/MainInterface.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="21" selection-end-line="75" />
+            <state relative-caret-position="255">
+              <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -193,7 +178,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Server/SocketThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="135">
               <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -446,7 +431,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1242" y="0" width="1263" height="1087" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20365752" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -458,7 +442,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25498426" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25498426" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -545,9 +529,17 @@
     <entry file="file://$USER_HOME$/Downloads/Compressed/javafx-event-handlers-and-change-listeners/javafx-event-handlers/src/MainApp.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/resources/MainInterface.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Server/SocketThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
+        <state relative-caret-position="135">
           <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -557,26 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Controller/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="31" column="9" selection-end-line="171" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/resources/MainInterface.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="21" selection-end-line="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-end-line="31" />
+        <state relative-caret-position="340">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -585,8 +559,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+        <state relative-caret-position="91">
+          <caret line="17" column="38" lean-forward="true" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
