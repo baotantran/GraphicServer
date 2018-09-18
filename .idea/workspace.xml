@@ -2,28 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="create iml file">
-      <change afterPath="$PROJECT_DIR$/src/com/message/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/controller/loginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/interfaces/login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$3$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$3$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Controller/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Interface/ApplicationInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Server/Server$SocketThreads.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Server/Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/Server/SocketThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/SynchronousVideo/resources/MainInterface.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/Server/SocketThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SynchronousVideo/resources/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraphicServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GraphicServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/interfaces/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/interfaces/MainInterface.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -114,39 +110,42 @@
     <session id="514527666">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
-          <entry key="project.open.time.1" value="4" />
+          <entry key="project.closed" value="12" />
+          <entry key="project.open.time.1" value="5" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="fxml" value="81" />
-          <entry key="java" value="4605" />
+          <entry key="dummy" value="1" />
+          <entry key="fxml" value="109" />
+          <entry key="java" value="5392" />
           <entry key="txt" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4605" />
-          <entry key="PLAIN_TEXT" value="15" />
-          <entry key="XML" value="81" />
+          <entry key="JAVA" value="5392" />
+          <entry key="PLAIN_TEXT" value="16" />
+          <entry key="XML" value="109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="5" />
+          <entry key="JAVA" value="6" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="fxml" value="1" />
           <entry key="iml" value="1" />
-          <entry key="java" value="5" />
+          <entry key="java" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -160,22 +159,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="255">
+              <caret line="15" column="49" lean-forward="true" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#834#835#0" expanded="true" />
-                <element signature="e#862#863#0" expanded="true" />
+                <element signature="e#683#684#0" expanded="true" />
+                <element signature="e#714#715#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/controller/loginController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/interfaces/login.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1099">
-              <caret line="106" column="50" lean-forward="true" selection-start-line="106" selection-start-column="50" selection-end-line="106" selection-end-column="50" />
+            <state relative-caret-position="205">
+              <caret line="106" column="50" selection-start-line="106" selection-start-column="50" selection-end-line="106" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -186,18 +207,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/message/Message.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
-              <folding>
-                <element signature="e#226#227#0" expanded="true" />
-                <element signature="e#276#277#0" expanded="true" />
-                <element signature="e#316#317#0" expanded="true" />
-                <element signature="e#348#349#0" expanded="true" />
-                <element signature="e#212#213#0" expanded="true" />
-                <element signature="e#247#248#0" expanded="true" />
-                <element signature="e#283#284#0" expanded="true" />
-                <element signature="e#308#309#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="255">
+              <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -205,8 +216,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+            <state relative-caret-position="1292">
+              <caret line="78" column="29" lean-forward="true" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -214,14 +225,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="31" column="135" selection-start-line="31" selection-start-column="135" selection-end-line="31" selection-end-column="135" />
+            <state relative-caret-position="556">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
     </leaf>
@@ -229,6 +240,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -236,6 +248,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>controller</find>
+      <find>duration</find>
+      <find>setString</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -268,17 +282,22 @@
         <option value="$PROJECT_DIR$/src/SynchronousVideo/Interface/ApplicationInterface.java" />
         <option value="$PROJECT_DIR$/src/com/Message.java" />
         <option value="$PROJECT_DIR$/src/com/server/Server.java" />
-        <option value="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" />
         <option value="$PROJECT_DIR$/src/com/message/Message.java" />
+        <option value="$PROJECT_DIR$/src/com/controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/com/controller/logInController.java" />
+        <option value="$PROJECT_DIR$/src/com/interfaces/logIn.fxml" />
+        <option value="$PROJECT_DIR$/src/com/interfaces/login.fxml" />
+        <option value="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" />
+        <option value="$PROJECT_DIR$/src/com/controller/loginController.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="118" />
-    <option name="y" value="163" />
-    <option name="width" value="975" />
-    <option name="height" value="790" />
+    <option name="x" value="743" />
+    <option name="y" value="103" />
+    <option name="width" value="1452" />
+    <option name="height" value="883" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -289,6 +308,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="GraphicServer" type="58d84e3e:PackageViewProjectNode" />
+              <item name="GraphicServer" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -307,23 +338,43 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
             </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
             <path>
-              <item name="GraphicServer" type="58d84e3e:PackageViewProjectNode" />
-              <item name="GraphicServer" type="616d4139:PackageViewModuleNode" />
+              <item name="GraphicServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GraphicServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GraphicServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GraphicServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="interfaces" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GraphicServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GraphicServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GraphicServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GraphicServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GraphicServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -335,9 +386,9 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537235553189" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537269215269" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jfoenix-9.0.6.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -467,10 +518,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="118" y="163" width="975" height="790" extended-state="0" />
-    <editor active="true" />
+    <frame x="743" y="103" width="1452" height="883" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2590164" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.17385058" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -480,7 +530,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.39634147" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.18558078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -574,10 +624,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Server/SocketThread.java">
+    <entry file="file://$PROJECT_DIR$/src/SynchronousVideo/Server/SocketThread.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        <state relative-caret-position="255">
+          <caret line="15" column="49" lean-forward="true" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
+            <element signature="e#714#715#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/controller/loginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/interfaces/login.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="106" column="50" selection-start-line="106" selection-start-column="50" selection-end-line="106" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/message/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="78" column="29" lean-forward="true" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -585,61 +683,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="31" column="135" selection-start-line="31" selection-start-column="135" selection-end-line="31" selection-end-column="135" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#834#835#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/message/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
-          <folding>
-            <element signature="e#226#227#0" expanded="true" />
-            <element signature="e#276#277#0" expanded="true" />
-            <element signature="e#316#317#0" expanded="true" />
-            <element signature="e#348#349#0" expanded="true" />
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#247#248#0" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#308#309#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1099">
-          <caret line="106" column="50" lean-forward="true" selection-start-line="106" selection-start-column="50" selection-end-line="106" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
   </component>
   <component name="masterDetails">
@@ -693,12 +742,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>GraphicServer1</last-edited>
+          <last-edited>GraphicServer</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

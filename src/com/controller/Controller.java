@@ -1,5 +1,7 @@
 package com.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSlider;
 import com.message.Message;
 import com.server.Server;
 import javafx.application.Platform;
@@ -31,9 +33,9 @@ public class Controller {
     @FXML
     private MediaView mediaView;
     @FXML
-    private Button playButton;
+    private JFXButton playButton;
     @FXML
-    private Slider timeSlider;
+    private JFXSlider timeSlider;
     private Duration duration;
     private Duration current;
     private boolean serverExist = false;
@@ -98,6 +100,13 @@ public class Controller {
                         updateTime();
                     }
                 });
+
+                timeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        updateTime();
+                    }
+                });
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaPlayer.setAutoPlay(false);
                 showNotification("Opened Video");
@@ -115,6 +124,10 @@ public class Controller {
                             && duration.greaterThan(Duration.ZERO)
                             && !timeSlider.isValueChanging()) {
                         timeSlider.setValue(current.divide(duration.toMillis()).toMillis() * 100);
+                    } else if (!timeSlider.isDisable() &&
+                                duration.greaterThan(Duration.ZERO) &&
+                                timeSlider.isValueChanging()) {
+                        player.seek(new Duration(duration.toMillis() * timeSlider.getValue() / 100));
                     }
                 }
             });

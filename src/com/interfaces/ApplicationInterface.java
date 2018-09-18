@@ -10,14 +10,19 @@ import javafx.stage.Stage;
 
 public class ApplicationInterface extends Application {
 
-    private static Controller controller;
+    public static Stage instance;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/com/interfaces/MainInterface.fxml"));
-        primaryStage.setTitle("Synchronous Video Chat");
-        primaryStage.setScene(new Scene(root, 500, 600));
+        instance = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("/com/interfaces/login.fxml"));
+        primaryStage.setTitle("Login Pane");
+        primaryStage.setScene(new Scene(root, 300, 200));
         primaryStage.show();
+    }
+
+    public static Stage getInstance() {
+        return instance;
     }
 
     public static void main(String[] args) {
