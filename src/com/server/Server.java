@@ -1,11 +1,12 @@
-package SynchronousVideo.Server;
+package com.server;
 
-import SynchronousVideo.Controller.Controller;
-import javafx.fxml.FXMLLoader;
+import com.controller.Controller;
+import com.message.Message;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
@@ -18,21 +19,20 @@ public class Server implements Runnable{
    private static ServerSocket server;
    private static Socket connection;
    private static Controller controller;
-   private static HashSet<DataOutputStream> outStreams;
-   private static HashSet<DataInputStream> inStreams;
+   public static HashSet<ObjectOutputStream> outStreams;
+   public static HashSet<ObjectInputStream> inStreams;
 
 
    // setup the server
    public Server (int port, Controller controller) {
       this.controller = controller;
-      outStreams = new HashSet<DataOutputStream>();
-      inStreams = new HashSet<DataInputStream>();
+      outStreams = new HashSet<ObjectOutputStream>();
+      inStreams = new HashSet<ObjectInputStream>();
       try {
          controller.showNotification("Setting up server...");
          server = new ServerSocket(port);
       } catch (IOException e) {
          e.printStackTrace();
-         controller.showNotification("Socket is not available");
       }
    }
 
@@ -66,10 +66,10 @@ public class Server implements Runnable{
    }
 
     // Send message from server to all clients on send button click
-    public static void sendServerMessage(String message) {
-        for(DataOutputStream send: outStreams) {
+    public static void sendServerMessage(Message message) {
+        for(ObjectOutputStream send: outStreams) {
             try {
-                send.writeUTF(message);
+                send.writeObject(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,9 +80,9 @@ public class Server implements Runnable{
    private static class SocketThreads implements Runnable{
        private Controller controller;
        private Socket connection;
-       private DataInputStream inMessage;
-       private DataOutputStream outMessage;
-       private static String message;
+       private ObjectInputStream inMessage;
+       private ObjectOutputStream outMessage;
+       private static Message message;
 
        public SocketThreads (Socket socket, Controller controller) {
            this.connection = socket;
@@ -92,20 +92,22 @@ public class Server implements Runnable{
        @Override
        public void run() {
            try {
-               inMessage = new DataInputStream(connection.getInputStream());
-               outMessage = new DataOutputStream(connection.getOutputStream());
+               inMessage = new ObjectInputStream(connection.getInputStream());
+               outMessage = new ObjectOutputStream(connection.getOutputStream());
                outStreams.add(outMessage); // add stream to stream database
                inStreams.add(inMessage);
                while (!connection.isClosed()) {
                    try {
-                       message = inMessage.readUTF();
-                       if(message.equalsIgnoreCase("client - end")) {
+                       message = (Message) inMessage.readObject();
+                       if(message.getStringMessage().equalsIgnoreCase("client - end")) {
                            closeConnection();
                            break;
                        }
-                       controller.showInMessage(message);
+                       controller.showInMessage(message.getStringMessage());
                        sendClientMessage(message);
                    } catch (IOException e) {
+                       e.printStackTrace();
+                   } catch (ClassNotFoundException e) {
                        e.printStackTrace();
                    }
                }
@@ -115,9 +117,9 @@ public class Server implements Runnable{
        }
 
         // send input message from this socket connection to all other socket connect to server
-       private void sendClientMessage(String message) throws IOException {
-           for (DataOutputStream send: outStreams) {
-               send.writeUTF(message);
+       private void sendClientMessage(Message message) throws IOException {
+           for (ObjectOutputStream send: outStreams) {
+               send.writeObject(message);
            }
        }
 

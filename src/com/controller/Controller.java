@@ -1,6 +1,7 @@
-package SynchronousVideo.Controller;
+package com.controller;
 
-import SynchronousVideo.Server.Server;
+import com.message.Message;
+import com.server.Server;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -35,6 +36,7 @@ public class Controller {
     private Slider timeSlider;
     private Duration duration;
     private Duration current;
+    private boolean serverExist = false;
 
     private static Controller controllerInstance;
     private static MediaPlayer player;
@@ -51,6 +53,8 @@ public class Controller {
                                 Number old_val, Number new_val) {
             }
         });
+
+
     }
 
     public static Controller getInstance() {
@@ -64,7 +68,7 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                message.appendText("Server: " + userIn.getText() + "\n");
+                message.appendText("SERVER - " + userIn.getText() + "\n");
                 userIn.setText("");
             }
         });
@@ -82,6 +86,9 @@ public class Controller {
                 player.setOnReady(new Runnable() {
                     @Override
                     public void run() {
+                        Message message = new Message();
+                        message.setStringMessage("Server player is ready");
+                        sendMessage(message);
                         duration = player.getMedia().getDuration();
                     }
                 });
@@ -141,7 +148,7 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                message.appendText("Client: " + mess + "\n");
+                message.appendText(mess + "\n");
             }
         });
     }
@@ -155,17 +162,35 @@ public class Controller {
         });
     }
 
-    public void sendMessage() {
-        Server.sendServerMessage(userIn.getText());
-        showOutMessage();
-        //showNotification(current.toString());
+    // Send simple string message if serverExist is true
+    public void sendStringMessage() {
+        if(serverExist) {
+            Message m = new Message();
+            m.setStringMessage(userIn.getText());
+            Server.sendServerMessage(m);
+            showOutMessage();
+            //showNotification(current.toString());
+        }
     }
 
+    // Send object message if serverExist is true
+    public void sendMessage(Message m) {
+        if(serverExist) {
+            Server.sendServerMessage(m);
+            showOutMessage();
+        }
+    }
+
+
+    // Create strictly 1 server regulated by serverExist
     public void startServer() {
-        Controller controller = getInstance();
-        Server server = new Server(5678, controller);
-        Thread t = new Thread(server);
-        t.start();
+        if(!serverExist) {
+            serverExist = true;
+            Controller controller = getInstance();
+            Server server = new Server(5678, controller);
+            Thread t = new Thread(server);
+            t.start();
+        }
     }
 
 }
