@@ -12,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Server implements Runnable{
@@ -23,6 +24,7 @@ public class Server implements Runnable{
    public static String serverName = "Server";
    public static Map<String, ObjectOutputStream> outStreams;
    public static Map<String, ObjectInputStream> inStreams;
+   private final AtomicBoolean running = new AtomicBoolean(true);
 
    // setup the server
    public Server (int port, Controller controller) {
@@ -53,7 +55,7 @@ public class Server implements Runnable{
    }
 
    public void waitConnection() throws IOException {
-       while(true) {
+       while(running.get()) {
            connection = server.accept();
            SocketThreads socket = new SocketThreads(connection, controller);
            Thread thread = new Thread(socket);
@@ -89,6 +91,7 @@ public class Server implements Runnable{
        private ObjectOutputStream outMessage;
        private static Message message;
        private String clientName;
+       private final AtomicBoolean running = new AtomicBoolean(true);
 
        public SocketThreads (Socket socket, Controller controller) {
            this.connection = socket;
@@ -97,33 +100,35 @@ public class Server implements Runnable{
 
        @Override
        public void run() {
-           try {
-               inMessage = new ObjectInputStream(connection.getInputStream());
-               outMessage = new ObjectOutputStream(connection.getOutputStream());
-               readInitialMessage(inMessage);
-               controller.showNotification(clientName + " has connected to server");
-               while (!connection.isClosed()) {
-                   try {
-                       message = (Message) inMessage.readObject();
-                       if(message.getStringMessage().equalsIgnoreCase(clientName + ": end")) {
-                           sendTerminate(outMessage);
+           while(running.get()) {
+               try {
+                   inMessage = new ObjectInputStream(connection.getInputStream());
+                   outMessage = new ObjectOutputStream(connection.getOutputStream());
+                   readInitialMessage(inMessage);
+                   controller.showNotification(clientName + " has connected to server");
+                   while (!connection.isClosed()) {
+                       try {
+                           message = (Message) inMessage.readObject();
+                           if (message.getStringMessage().equalsIgnoreCase(clientName + ": end")) {
+                               sendTerminate(outMessage);
+                               closeConnection();
+                               break;
+                           }
+                           controller.showInMessage(message.getStringMessage());
+                           sendServerMessage(message); // Send message from client to other clients
+                       } catch (IOException e) {
+                           e.printStackTrace();
                            closeConnection();
-                           break;
+                       } catch (ClassNotFoundException e) {
+                           e.printStackTrace();
+                           closeConnection();
                        }
-                       controller.showInMessage(message.getStringMessage());
-                       sendServerMessage(message); // Send message from client to other clients
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                       closeConnection();
-                   } catch (ClassNotFoundException e) {
-                       e.printStackTrace();
-                       closeConnection();
                    }
+               } catch (IOException e) {
+                   e.printStackTrace();
+               } catch (ClassNotFoundException e) {
+                   e.printStackTrace();
                }
-           } catch (IOException e) {
-               e.printStackTrace();
-           } catch (ClassNotFoundException e) {
-               e.printStackTrace();
            }
        }
 
@@ -148,12 +153,13 @@ public class Server implements Runnable{
 
        private void closeConnection() {
            try {
-               inStreams.remove(inMessage);
-               outStreams.remove(outMessage);
+               inStreams.remove(clientName);
+               outStreams.remove(clientName);
                inMessage.close();
                outMessage.close();
                connection.close();
-               controller.showNotification("A client ended connection");
+               running.set(false);
+               controller.showNotification(clientName + " ended connection");
            } catch (IOException e) {
                e.printStackTrace();
            }

@@ -2,32 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="create iml file">
-      <change afterPath="$PROJECT_DIR$/src/com/message/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/loginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/loginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/controller/video.MP4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/interfaces/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/interfaces/MainInterface.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/interfaces/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/interfaces/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/message/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/message/Message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/server/Server$SocketThreads.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/server/Server$SocketThreads.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GraphicServer/com/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphicServer/com/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/controller/loginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/controller/loginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/ApplicationInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/MainInterface.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/interfaces/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/interfaces/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/message/Message.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/server/Server.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -134,13 +108,13 @@
         <counts>
           <entry key="dummy" value="1" />
           <entry key="fxml" value="118" />
-          <entry key="java" value="8168" />
+          <entry key="java" value="8227" />
           <entry key="txt" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8168" />
+          <entry key="JAVA" value="8227" />
           <entry key="PLAIN_TEXT" value="16" />
           <entry key="XML" value="118" />
         </counts>
@@ -193,11 +167,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="132" column="39" selection-start-line="132" selection-start-column="39" selection-end-line="132" selection-end-column="39" />
+            <state relative-caret-position="696">
+              <caret line="68" column="26" lean-forward="true" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -218,15 +192,15 @@
         <entry file="file://$PROJECT_DIR$/src/com/message/Type.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1503">
+            <state relative-caret-position="-1874">
               <caret line="101" column="48" selection-start-line="101" selection-start-column="48" selection-end-line="101" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -428,7 +402,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537872038171" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jfoenix-9.0.6.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GraphicClient" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -561,7 +535,7 @@
     <frame x="-7" y="0" width="1262" height="1087" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21880199" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.3028286" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -725,13 +699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/message/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/io/ObjectInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -739,24 +706,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/controller/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/com/message/Type.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1503">
-          <caret line="101" column="48" selection-start-line="101" selection-start-column="48" selection-end-line="101" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3612#3613#0" expanded="true" />
-            <element signature="e#3656#3657#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="132" column="39" selection-start-line="132" selection-start-column="39" selection-end-line="132" selection-end-column="39" />
+        <state relative-caret-position="696">
+          <caret line="68" column="26" lean-forward="true" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1874">
+          <caret line="101" column="48" selection-start-line="101" selection-start-column="48" selection-end-line="101" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3612#3613#0" expanded="true" />
+            <element signature="e#3656#3657#0" expanded="true" />
           </folding>
         </state>
       </provider>
