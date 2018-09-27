@@ -9,6 +9,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -17,6 +18,12 @@ import javafx.scene.media.MediaPlayer.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.control.Button;
 import java.net.URL;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import javafx.scene.control.Slider;
@@ -39,13 +46,25 @@ public class Controller {
     private Duration duration;
     private Duration current;
     private boolean serverExist = false;
+    private static String serverName = "Server";
+    private Stage stage;
+    private ExecutorService es;
 
     private static Controller controllerInstance;
     private static MediaPlayer player;
 
+    // Make a reference of controller instance
+    // Get a reference of stage instance
     public Controller() {
         controllerInstance = this;
+        stage = loginController.getInstance();
+    }
 
+
+
+    // Set server name pass in by login controller
+    public static void setServerName(String name) {
+        serverName = name;
     }
 
     @FXML
@@ -55,25 +74,10 @@ public class Controller {
                                 Number old_val, Number new_val) {
             }
         });
-
-
     }
 
     public static Controller getInstance() {
         return controllerInstance;
-    }
-
-
-
-    // Show message sent from server
-    public void showOutMessage() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                message.appendText("SERVER - " + userIn.getText() + "\n");
-                userIn.setText("");
-            }
-        });
     }
 
     public void playMedia() {
@@ -85,28 +89,7 @@ public class Controller {
                 Media media = new Media(mediaString);
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
                 player = mediaPlayer;
-                player.setOnReady(new Runnable() {
-                    @Override
-                    public void run() {
-                        Message message = new Message();
-                        message.setStringMessage("Server player is ready");
-                        sendMessage(message);
-                        duration = player.getMedia().getDuration();
-                    }
-                });
-                player.currentTimeProperty().addListener(new InvalidationListener() {
-                    @Override
-                    public void invalidated(Observable observable) {
-                        updateTime();
-                    }
-                });
-
-                timeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        updateTime();
-                    }
-                });
+                setup(player);
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaPlayer.setAutoPlay(false);
                 showNotification("Opened Video");
@@ -114,6 +97,54 @@ public class Controller {
         });
     }
 
+    // Setup method for player
+    public void setup(MediaPlayer player) {
+        // Set stage on close to turn off server
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if(serverExist) {
+                    es.shutdown();
+                }
+            }
+        });
+
+        player.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                message.setStringMessage("Server player is ready");
+                sendMessage(message);
+                duration = player.getMedia().getDuration();
+            }
+        });
+        player.currentTimeProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                updateTime();
+            }
+        });
+
+        timeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                updateTime();
+            }
+        });
+
+        player.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                message.setStringMessage(serverName + "'s media is ready");
+                message.setStatus("ready");
+                sendMessage(message);
+            }
+        });
+    }
+
+    // Update slider on time change
+    // Update time on slider change
     private void updateTime() {
         if(timeSlider != null) {
             Platform.runLater(new Runnable() {
@@ -134,6 +165,7 @@ public class Controller {
         }
     }
 
+    // Play media on button click
     public void pressPlayButton() {
         Platform.runLater(new Runnable() {
             @Override
@@ -154,8 +186,6 @@ public class Controller {
         });
     }
 
-
-
     // Show message from client to server
     public void showInMessage(String mess) {
         Platform.runLater(new Runnable() {
@@ -166,6 +196,18 @@ public class Controller {
         });
     }
 
+    // Show message sent to client
+    public void showOutMessage() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                message.appendText(serverName + ": " + userIn.getText() + "\n");
+                userIn.setText("");
+            }
+        });
+    }
+
+    // Show general necessary message in text area
     public void showNotification(String mess) {
         Platform.runLater(new Runnable() {
             @Override
@@ -179,7 +221,7 @@ public class Controller {
     public void sendStringMessage() {
         if(serverExist) {
             Message m = new Message();
-            m.setStringMessage(userIn.getText());
+            m.setStringMessage(Server.serverName + ": " + userIn.getText());
             Server.sendServerMessage(m);
             showOutMessage();
             //showNotification(current.toString());
@@ -196,14 +238,17 @@ public class Controller {
 
 
     // Create strictly 1 server regulated by serverExist
+    // pass in scene controller, and server name
     public void startServer() {
         if(!serverExist) {
             serverExist = true;
             Controller controller = getInstance();
             Server server = new Server(5678, controller);
-            Thread t = new Thread(server);
-            t.start();
+            server.setServerName(serverName);
+            es = Executors.newFixedThreadPool(1);
+            es.submit(server);
+            //Thread t = new Thread(server);
+            //t.start();
         }
     }
-
 }

@@ -21,6 +21,11 @@ public class ApplicationInterface extends Application {
         primaryStage.show();
     }
 
+    @Override
+    public void stop() {
+
+    }
+
     public static Stage getInstance() {
         return instance;
     }

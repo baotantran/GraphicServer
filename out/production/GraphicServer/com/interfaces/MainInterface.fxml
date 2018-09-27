@@ -36,7 +36,7 @@
                <effect>
                   <Blend mode="ADD">
                      <topInput>
-                        <Shadow color="#030202" height="70.42" radius="36.3775" width="77.09" />
+                        <Shadow color="#234315" height="70.42" radius="36.3775" width="77.09" />
                      </topInput>
                   </Blend>
                </effect></TextField>
@@ -58,10 +58,10 @@
       </MenuBar>
       <TextArea fx:id="message" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
       <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="500.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <children>
             <JFXButton fx:id="playButton" onAction="#pressPlayButton" text="&gt;" />
-            <JFXSlider fx:id="timeSlider" showTickMarks="true" HBox.hgrow="ALWAYS" />
+            <JFXSlider fx:id="timeSlider" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
