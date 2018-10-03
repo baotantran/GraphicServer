@@ -178,7 +178,9 @@ public class Controller {
                     } else if (!timeSlider.isDisable() &&
                                 duration.greaterThan(Duration.ZERO) &&
                                 timeSlider.isValueChanging()) {
-                        player.seek(new Duration(duration.toMillis() * timeSlider.getValue() / 100));
+                        double time = duration.toMillis() * timeSlider.getValue() / 100;
+                        player.seek(new Duration(time));
+                        Server.sendUpdateTime(time);
                     }
                 }
             });

@@ -98,6 +98,15 @@ public class Server implements Runnable{
         sendServerMessage(message);
     }
 
+    public static void sendUpdateTime(double time) {
+       Message message = new Message();
+       message.setStatus(controller.player.getStatus());
+       message.setType(Type.TIME);
+       message.setStringMessage("Server player current time");
+       message.setTime(time);
+       sendServerMessage(message);
+    }
+
 
    private static class SocketThreads implements Runnable{
        private Controller controller;
@@ -220,11 +229,12 @@ public class Server implements Runnable{
                    break;
                case REQUEST:
                    if(controller.playerExist) {
-                       Message time = new Message();
+                       /*Message time = new Message();
                        time.setType(Type.TIME);
                        time.setStringMessage("Server player current time");
                        time.setTime(controller.player.getCurrentTime().toMillis());
-                       output.writeObject(time);
+                       output.writeObject(time);*/
+                       sendUpdateTime(controller.player.getCurrentTime().toMillis());
                    }
                    break;
                case TIME:
