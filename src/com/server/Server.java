@@ -3,15 +3,22 @@ package com.server;
 import com.controller.Controller;
 import com.message.Message;
 import com.message.Type;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -83,6 +90,14 @@ public class Server implements Runnable{
         });
     }
 
+    public static void sendPlayerStatus(Status curr) {
+        Message message = new Message();
+        message.setType(Type.STATUS);
+        message.setStatus(curr);
+        message.setStringMessage("Server player status is " + curr);
+        sendServerMessage(message);
+    }
+
 
    private static class SocketThreads implements Runnable{
        private Controller controller;
@@ -91,21 +106,27 @@ public class Server implements Runnable{
        private ObjectOutputStream outMessage;
        private static Message message;
        private String clientName;
-       private final AtomicBoolean running = new AtomicBoolean(true);
+       //private final AtomicBoolean running = new AtomicBoolean(true);
+       private ScheduledExecutorService ses;
 
        public SocketThreads (Socket socket, Controller controller) {
            this.connection = socket;
            this.controller = controller;
+           ses = Executors.newScheduledThreadPool(1);
+
        }
 
        @Override
        public void run() {
-           while(running.get()) {
+           while(!connection.isClosed()) {
                try {
                    inMessage = new ObjectInputStream(connection.getInputStream());
                    outMessage = new ObjectOutputStream(connection.getOutputStream());
-                   readInitialMessage(inMessage);
+                   readInitialMessage(inMessage, outMessage);
                    controller.showNotification(clientName + " has connected to server");
+                   sendInitialMessage(inMessage, outMessage);
+                   //setupClientPlayer(inMessage, outMessage);
+                   //setupTimeSender();
                    while (!connection.isClosed()) {
                        try {
                            message = (Message) inMessage.readObject();
@@ -114,8 +135,8 @@ public class Server implements Runnable{
                                closeConnection();
                                break;
                            }
-                           controller.showInMessage(message.getStringMessage());
-                           sendServerMessage(message); // Send message from client to other clients
+                           interpreter(inMessage, outMessage, message);
+                            // Send message from client to other clients
                        } catch (IOException e) {
                            e.printStackTrace();
                            closeConnection();
@@ -126,8 +147,10 @@ public class Server implements Runnable{
                    }
                } catch (IOException e) {
                    e.printStackTrace();
+                   closeConnection();
                } catch (ClassNotFoundException e) {
                    e.printStackTrace();
+                   closeConnection();
                }
            }
        }
@@ -142,14 +165,110 @@ public class Server implements Runnable{
 
        // Read initial message from client to set client name
        // put the client name and stream into map
-       private void readInitialMessage(ObjectInputStream input) throws ClassNotFoundException, IOException {
+       private void readInitialMessage(ObjectInputStream input, ObjectOutputStream output) throws ClassNotFoundException, IOException {
            Message initial = (Message) inMessage.readObject();
            clientName = initial.getName();
            if(initial.getType() == Type.FIRST) {
-               outStreams.put(clientName, outMessage); // add stream to stream database along with client name
-               inStreams.put(clientName, inMessage);
+               outStreams.put(clientName, output); // add stream to stream database along with client name
+               inStreams.put(clientName, input);
+
            }
        }
+
+       // Create a thread to periodically send time
+       private void setupTimeSender() {
+           ses.scheduleAtFixedRate(new Runnable() {
+               @Override
+               public void run() {
+                   try {
+                       while (!connection.isClosed() && controller.playerExist) {
+                           System.out.println("send update time");
+                           Message message = new Message();
+                           message.setType(Type.TIME);
+                           message.setStringMessage("Server player current time");
+                           message.setTime(controller.player.getCurrentTime().toMillis());
+                           outMessage.writeObject(message);
+                       }
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
+           }, 3000L, 10000L, TimeUnit.MILLISECONDS);
+       }
+
+       // Send the current status of server player on first connection of client
+       // If player has been created
+       private void sendInitialMessage(ObjectInputStream input, ObjectOutputStream output) throws ClassNotFoundException, IOException {
+           if(controller.playerExist) {
+               Message message = new Message();
+               message.setType(Type.STATUS);
+               message.setStatus(controller.player.getStatus());
+               message.setStringMessage("Server player is " + controller.player.getStatus());
+               output.writeObject(message);
+           }
+       }
+
+
+       // Decide server respond based on Type of message
+       private void interpreter(ObjectInputStream input, ObjectOutputStream output, Message message) throws IOException{
+           Status status = message.getStatus();
+           Type type = message.getType();
+           switch (type) {
+               case NORMAL:
+                   controller.showInMessage(message.getStringMessage());
+                   sendServerMessage(message);
+                   break;
+               case REQUEST:
+                   if(controller.playerExist) {
+                       Message time = new Message();
+                       time.setType(Type.TIME);
+                       time.setStringMessage("Server player current time");
+                       time.setTime(controller.player.getCurrentTime().toMillis());
+                       output.writeObject(time);
+                   }
+                   break;
+               case TIME:
+                   //TODO
+               case STATUS:
+                   controller.showInMessage(message.getStringMessage());
+               default:
+                   controller.showInMessage(message.getStringMessage());
+                   break;
+           }
+       }
+
+       /*private void setupClientPlayer(ObjectInputStream input, ObjectOutputStream output) throws ClassNotFoundException, IOException {
+           Message message = new Message();
+           Status curr = controller.status;
+           if(curr != Status.UNKNOWN) {
+               message.setStringMessage("Server player is ready!");
+               //check status of the player send the status if ready or send time if playing or paused
+               if(curr == Status.PLAYING) {
+                   message.setStatus(curr);
+                   message.setType(Type.STATUS);
+                   output.writeObject(message);
+                   Message setup = (Message) input.readObject();
+                   while(setup.getStatus() != Status.PLAYING) {
+                       output.writeObject(message);
+                       setup = (Message) input.readObject();
+                       controller.showNotification("in the media setup loop \n" + message.getStatus());
+                   }
+                   message.setTime(controller.player.getCurrentTime().toMillis());
+                   message.setType(Type.TIME);
+                   output.writeObject(message);
+                   // Send the time and keep checking if the client is in sync
+                   // and then release
+               } else if (curr == Status.READY) {
+                   message.setType(Type.STATUS);
+                   output.writeObject(message);
+               }
+           } else {
+               message.setType(Type.STATUS);
+               message.setStatus(curr);
+               message.setStringMessage("Server player is not ready!");
+               output.writeObject(message);
+           }
+       }*/
 
        private void closeConnection() {
            try {
@@ -158,8 +277,8 @@ public class Server implements Runnable{
                inMessage.close();
                outMessage.close();
                connection.close();
-               running.set(false);
-               controller.showNotification(clientName + " ended connection");
+               ses.shutdown();
+               controller.showNotification(clientName + " ended connection!");
            } catch (IOException e) {
                e.printStackTrace();
            }

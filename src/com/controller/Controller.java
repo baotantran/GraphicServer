@@ -3,6 +3,7 @@ package com.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.message.Message;
+import com.message.Type;
 import com.server.Server;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -33,6 +34,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class Controller {
 
+    // FXML variable
     @FXML
     private TextArea message;
     @FXML
@@ -43,15 +45,20 @@ public class Controller {
     private JFXButton playButton;
     @FXML
     private JFXSlider timeSlider;
-    private Duration duration;
-    private Duration current;
+
+    // Server variable
     private boolean serverExist = false;
     private static String serverName = "Server";
     private Stage stage;
     private ExecutorService es;
 
+    // Media variable
+    private Duration duration;
+    private Duration current;
     private static Controller controllerInstance;
-    private static MediaPlayer player;
+    public static MediaPlayer player;
+    public static Status status;
+    public static boolean playerExist = false;
 
     // Make a reference of controller instance
     // Get a reference of stage instance
@@ -59,8 +66,6 @@ public class Controller {
         controllerInstance = this;
         stage = loginController.getInstance();
     }
-
-
 
     // Set server name pass in by login controller
     public static void setServerName(String name) {
@@ -74,6 +79,16 @@ public class Controller {
                                 Number old_val, Number new_val) {
             }
         });
+
+        // Set stage on close to turn off server
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if(serverExist) {
+                    es.shutdown();
+                }
+            }
+        });
     }
 
     public static Controller getInstance() {
@@ -84,9 +99,10 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                URL mediaURL = getClass().getResource("video.mp4");
-                String mediaString = mediaURL.toExternalForm();
-                Media media = new Media(mediaString);
+                playerExist = true;
+                //URL mediaURL = getClass().getResource("video.mp4");
+                //String mediaString = mediaURL.toExternalForm();
+                Media media = new Media("http://www.html5videoplayer.net/videos/toystory.mp4");
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
                 player = mediaPlayer;
                 setup(player);
@@ -99,25 +115,30 @@ public class Controller {
 
     // Setup method for player
     public void setup(MediaPlayer player) {
-        // Set stage on close to turn off server
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        player.setOnPlaying(new Runnable() {
             @Override
-            public void handle(WindowEvent event) {
-                if(serverExist) {
-                    es.shutdown();
-                }
+            public void run() {
+                status = Status.PLAYING;
+                Server.sendPlayerStatus(status);
             }
         });
 
-        player.setOnReady(new Runnable() {
+        player.setOnHalted(new Runnable() {
             @Override
             public void run() {
-                Message message = new Message();
-                message.setStringMessage("Server player is ready");
-                sendMessage(message);
-                duration = player.getMedia().getDuration();
+                status = Status.HALTED;
+                Server.sendPlayerStatus(status);
             }
         });
+
+        player.setOnPaused(new Runnable() {
+            @Override
+            public void run() {
+                status = Status.PAUSED;
+                Server.sendPlayerStatus(status);
+            }
+        });
+
         player.currentTimeProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -135,10 +156,9 @@ public class Controller {
         player.setOnReady(new Runnable() {
             @Override
             public void run() {
-                Message message = new Message();
-                message.setStringMessage(serverName + "'s media is ready");
-                message.setStatus("ready");
-                sendMessage(message);
+                status = Status.READY;
+                Server.sendPlayerStatus(status);
+                duration = player.getMedia().getDuration();
             }
         });
     }
@@ -221,6 +241,8 @@ public class Controller {
     public void sendStringMessage() {
         if(serverExist) {
             Message m = new Message();
+            m.setType(Type.NORMAL);
+            m.setStatus(status);
             m.setStringMessage(Server.serverName + ": " + userIn.getText());
             Server.sendServerMessage(m);
             showOutMessage();
@@ -238,7 +260,7 @@ public class Controller {
 
 
     // Create strictly 1 server regulated by serverExist
-    // pass in scene controller, and server name
+    // Pass in scene controller, and server name
     public void startServer() {
         if(!serverExist) {
             serverExist = true;
