@@ -5,7 +5,6 @@ import com.message.Message;
 import com.message.Type;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -81,20 +80,22 @@ public class Server implements Runnable{
 
     // Send message to all clients
     public static void sendServerMessage(Message message) {
-        outStreams.forEach((k, v) -> {
-           try {
-               v.writeObject(message);
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-        });
+       if(controller.serverExist) {
+           outStreams.forEach((k, v) -> {
+               try {
+                   v.writeObject(message);
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           });
+       }
     }
 
-    public static void sendPlayerStatus(Status curr) {
+    public static void sendPlayerStatus(Status curr, String link) {
         Message message = new Message();
         message.setType(Type.STATUS);
         message.setStatus(curr);
-        message.setStringMessage("Server player status is " + curr);
+        message.setStringMessage(link);
         sendServerMessage(message);
     }
 
@@ -139,13 +140,7 @@ public class Server implements Runnable{
                    while (!connection.isClosed()) {
                        try {
                            message = (Message) inMessage.readObject();
-                           if (message.getStringMessage().equalsIgnoreCase(clientName + ": end")) {
-                               sendTerminate(outMessage);
-                               closeConnection();
-                               break;
-                           }
                            interpreter(inMessage, outMessage, message);
-                            // Send message from client to other clients
                        } catch (IOException e) {
                            e.printStackTrace();
                            closeConnection();
@@ -167,6 +162,7 @@ public class Server implements Runnable{
        // Send end message to signal client to terminate
        private void sendTerminate(ObjectOutputStream output) throws IOException{
            Message terminate = new Message();
+           terminate.setType(Type.TERMINATE);
            terminate.setStringMessage("end");
            output.writeObject(terminate);
        }
@@ -212,7 +208,7 @@ public class Server implements Runnable{
                Message message = new Message();
                message.setType(Type.STATUS);
                message.setStatus(controller.player.getStatus());
-               message.setStringMessage("Server player is " + controller.player.getStatus());
+               message.setStringMessage(controller.currentLink);
                output.writeObject(message);
            }
        }
@@ -229,11 +225,6 @@ public class Server implements Runnable{
                    break;
                case REQUEST:
                    if(controller.playerExist) {
-                       /*Message time = new Message();
-                       time.setType(Type.TIME);
-                       time.setStringMessage("Server player current time");
-                       time.setTime(controller.player.getCurrentTime().toMillis());
-                       output.writeObject(time);*/
                        sendUpdateTime(controller.player.getCurrentTime().toMillis());
                    }
                    break;
@@ -241,6 +232,14 @@ public class Server implements Runnable{
                    //TODO
                case STATUS:
                    controller.showInMessage(message.getStringMessage());
+                   break;
+               case TERMINATE:
+                   sendTerminate(outMessage);
+                   closeConnection();
+                   break;
+               case LINK:
+                   controller.addClientLink(message.getStringMessage());
+                   break;
                default:
                    controller.showInMessage(message.getStringMessage());
                    break;

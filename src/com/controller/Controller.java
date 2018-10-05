@@ -2,6 +2,8 @@ package com.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.message.Message;
 import com.message.Type;
 import com.server.Server;
@@ -9,16 +11,17 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.control.Button;
-import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,28 +29,30 @@ import java.util.concurrent.Executors;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-
-import javafx.scene.control.Slider;
 import javafx.scene.media.MediaPlayer;
 
-
+import static com.server.Server.sendServerMessage;
 
 public class Controller {
 
     // FXML variable
     @FXML
-    private TextArea message;
+    private JFXTextArea message;
     @FXML
-    private TextField userIn;
+    private JFXTextField userIn;
     @FXML
     private MediaView mediaView;
     @FXML
     private JFXButton playButton;
     @FXML
     private JFXSlider timeSlider;
+    @FXML
+    private ListView listView;
+    @FXML
+    private JFXTextField linkField;
 
     // Server variable
-    private boolean serverExist = false;
+    public static boolean serverExist = false;
     private static String serverName = "Server";
     private Stage stage;
     private ExecutorService es;
@@ -59,6 +64,8 @@ public class Controller {
     public static MediaPlayer player;
     public static Status status;
     public static boolean playerExist = false;
+    public static final String SAMPLE =  "http://www.html5videoplayer.net/videos/toystory.mp4";
+    public static String currentLink;
 
     // Make a reference of controller instance
     // Get a reference of stage instance
@@ -67,19 +74,18 @@ public class Controller {
         stage = loginController.getInstance();
     }
 
+    // Return controller instance called by server
+    public static Controller getInstance() {
+        return controllerInstance;
+    }
+
     // Set server name pass in by login controller
-    public static void setServerName(String name) {
+    public void setServerName(String name) {
         serverName = name;
     }
 
     @FXML
     private void initialize() {
-        timeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-            }
-        });
-
         // Set stage on close to turn off server
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -89,53 +95,82 @@ public class Controller {
                 }
             }
         });
+
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        listView.getItems().add(SAMPLE);
     }
 
-    public static Controller getInstance() {
-        return controllerInstance;
+    // ----------------------------------------------------- //
+    // -------------------Media Setup----------------------- //
+    // ----------------------------------------------------- //
+    // Add the link to list view
+    public void addToList() {
+        listView.getItems().add(linkField.getText());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                linkField.setText("");
+            }
+        });
     }
 
+    public void addClientLink(final String link) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                listView.getItems().add(link);
+            }
+        });
+    }
+
+    // Load media to media player
+    // Link required video format in the link
+    // Load the SAMPLE link
     public void playMedia() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                String link = (String) listView.getSelectionModel().getSelectedItem();
                 playerExist = true;
                 //URL mediaURL = getClass().getResource("video.mp4");
                 //String mediaString = mediaURL.toExternalForm();
-                Media media = new Media("http://www.html5videoplayer.net/videos/toystory.mp4");
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                player = mediaPlayer;
+                Media media;
+                if(link != null) {
+                    media = setMedia(link);
+                } else {
+                    media = setMedia();
+                }
+                player = new MediaPlayer(media);
                 setup(player);
-                mediaView.setMediaPlayer(mediaPlayer);
-                mediaPlayer.setAutoPlay(false);
+                mediaView.setMediaPlayer(player);
+                player.setAutoPlay(false);
                 showNotification("Opened Video");
             }
         });
     }
 
-    // Setup method for player
+    // Add SAMPLE link to media
+    private Media setMedia() {
+        listView.getItems().add(SAMPLE);
+        currentLink = SAMPLE;
+        return new Media(SAMPLE);
+    }
+
+    // Add custom link to media
+    private Media setMedia(String mediaLink) {
+        Media media = new Media(mediaLink);
+        currentLink = mediaLink;
+        return media;
+    }
+
+    // Initialized method for player
+    // onPlaying, onPaused....
     public void setup(MediaPlayer player) {
-        player.setOnPlaying(new Runnable() {
+        player.setOnReady(new Runnable() {
             @Override
             public void run() {
-                status = Status.PLAYING;
-                Server.sendPlayerStatus(status);
-            }
-        });
-
-        player.setOnHalted(new Runnable() {
-            @Override
-            public void run() {
-                status = Status.HALTED;
-                Server.sendPlayerStatus(status);
-            }
-        });
-
-        player.setOnPaused(new Runnable() {
-            @Override
-            public void run() {
-                status = Status.PAUSED;
-                Server.sendPlayerStatus(status);
+                status = Status.READY;
+                Server.sendPlayerStatus(status, currentLink);
             }
         });
 
@@ -157,7 +192,7 @@ public class Controller {
             @Override
             public void run() {
                 status = Status.READY;
-                Server.sendPlayerStatus(status);
+                Server.sendPlayerStatus(status, currentLink);
                 duration = player.getMedia().getDuration();
             }
         });
@@ -200,12 +235,28 @@ public class Controller {
                 if(status == Status.READY || status == Status.PAUSED || status == Status.STOPPED) {
                     player.play();
                     playButton.setText("II");
+                    sendCommand("play");
                 } else {
                     player.pause();
                     playButton.setText(">");
+                    sendCommand("paused");
                 }
             }
         });
+    }
+
+    // ------------------------------------------------------------------ //
+    // ----------------------Message Setup------------------------------- //
+    // ------------------------------------------------------------------ //
+
+    private void sendCommand(String command) {
+        if(serverExist) {
+            Status status = player.getStatus();
+            Message message = new Message();
+            message.setType(Type.COMMAND);
+            message.setStringMessage(command);
+            sendServerMessage(message);
+        }
     }
 
     // Show message from client to server
@@ -246,7 +297,7 @@ public class Controller {
             m.setType(Type.NORMAL);
             m.setStatus(status);
             m.setStringMessage(Server.serverName + ": " + userIn.getText());
-            Server.sendServerMessage(m);
+            sendServerMessage(m);
             showOutMessage();
             //showNotification(current.toString());
         }
@@ -255,7 +306,7 @@ public class Controller {
     // Send object message if serverExist is true
     public void sendMessage(Message m) {
         if(serverExist) {
-            Server.sendServerMessage(m);
+            sendServerMessage(m);
             showOutMessage();
         }
     }
@@ -271,8 +322,6 @@ public class Controller {
             server.setServerName(serverName);
             es = Executors.newFixedThreadPool(1);
             es.submit(server);
-            //Thread t = new Thread(server);
-            //t.start();
         }
     }
 }

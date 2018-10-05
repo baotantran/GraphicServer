@@ -31,7 +31,7 @@ public class loginController {
         controller = fxmlLoader.getController();
         controller.setServerName(name);
         //--------------------------------------------------
-        Scene scene = new Scene(root, 500, 600);
+        Scene scene = new Scene(root, 700, 600);
         newStage.setResizable(false);
         newStage.setTitle("Synchronous Video Chat");
         newStage.setScene(scene);
