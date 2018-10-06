@@ -58,7 +58,7 @@ public class Controller {
     private ExecutorService es;
 
     // Media variable
-    private Duration duration;
+    private static Duration duration;
     private Duration current;
     private static Controller controllerInstance;
     public static MediaPlayer player;
@@ -91,7 +91,7 @@ public class Controller {
             @Override
             public void handle(WindowEvent event) {
                 if(serverExist) {
-                    es.shutdown();
+                    es.shutdownNow();
                 }
             }
         });
@@ -131,7 +131,6 @@ public class Controller {
             @Override
             public void run() {
                 String link = (String) listView.getSelectionModel().getSelectedItem();
-                playerExist = true;
                 //URL mediaURL = getClass().getResource("video.mp4");
                 //String mediaString = mediaURL.toExternalForm();
                 Media media;
@@ -140,7 +139,10 @@ public class Controller {
                 } else {
                     media = setMedia();
                 }
+                if(playerExist) player.dispose();
                 player = new MediaPlayer(media);
+                playButton.setText(">");
+                playerExist = true;
                 setup(player);
                 mediaView.setMediaPlayer(player);
                 player.setAutoPlay(false);
@@ -151,7 +153,6 @@ public class Controller {
 
     // Add SAMPLE link to media
     private Media setMedia() {
-        listView.getItems().add(SAMPLE);
         currentLink = SAMPLE;
         return new Media(SAMPLE);
     }
@@ -220,6 +221,17 @@ public class Controller {
                 }
             });
         }
+    }
+
+    public static void updateMediaTime(double time) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(duration.greaterThan(Duration.ZERO)) {
+                    player.seek(new Duration(time));
+                }
+            }
+        });
     }
 
     // Play media on button click

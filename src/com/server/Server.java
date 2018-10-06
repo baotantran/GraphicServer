@@ -3,18 +3,14 @@ package com.server;
 import com.controller.Controller;
 import com.message.Message;
 import com.message.Type;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,12 +18,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Server implements Runnable{
-   //private static DataInputStream inMessage;
-   private static DataOutputStream outMessage;
    private static ServerSocket server;
    private static Socket connection;
    private static Controller controller;
    public static String serverName = "Server";
+   public static OutStreamList outStreamList;
    public static Map<String, ObjectOutputStream> outStreams;
    public static Map<String, ObjectInputStream> inStreams;
    private final AtomicBoolean running = new AtomicBoolean(true);
@@ -35,7 +30,7 @@ public class Server implements Runnable{
    // setup the server
    public Server (int port, Controller controller) {
       this.controller = controller;
-      outStreams = new HashMap<String, ObjectOutputStream>();
+      outStreamList = new OutStreamList(new HashMap<String, ObjectOutputStream>());
       inStreams = new HashMap<String, ObjectInputStream>();
       try {
          controller.showNotification("Setting up server...");
@@ -81,14 +76,15 @@ public class Server implements Runnable{
     // Send message to all clients
     public static void sendServerMessage(Message message) {
        if(controller.serverExist) {
-           outStreams.forEach((k, v) -> {
-               try {
-                   v.writeObject(message);
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           });
+           outStreamList.send(message);
        }
+    }
+
+    // Send message to all client except for current client which call this function
+    public static void sendServerMessage(Message message, String name) {
+        if(controller.serverExist) {
+           outStreamList.send(message, name);
+        }
     }
 
     public static void sendPlayerStatus(Status curr, String link) {
@@ -100,12 +96,23 @@ public class Server implements Runnable{
     }
 
     public static void sendUpdateTime(double time) {
-       Message message = new Message();
-       message.setStatus(controller.player.getStatus());
-       message.setType(Type.TIME);
-       message.setStringMessage("Server player current time");
-       message.setTime(time);
-       sendServerMessage(message);
+        Message message = new Message();
+        message.setStatus(controller.player.getStatus());
+        message.setType(Type.TIME);
+        message.setStringMessage("Server player current time");
+        message.setTime(time);
+        sendServerMessage(message);
+    }
+
+    // Send update time to all client except for the client which
+    // send time message to server
+    public static void sendUpdateTime(double time, String name) {
+        Message message = new Message();
+        message.setStatus(controller.player.getStatus());
+        message.setType(Type.TIME);
+        message.setStringMessage("Server player current time");
+        message.setTime(time);
+        sendServerMessage(message, name);
     }
 
 
@@ -174,7 +181,7 @@ public class Server implements Runnable{
            Message initial = (Message) inMessage.readObject();
            clientName = initial.getName();
            if(initial.getType() == Type.FIRST) {
-               outStreams.put(clientName, output); // add stream to stream database along with client name
+               outStreamList.put(clientName, output); // add stream to stream database along with client name
                inStreams.put(clientName, input);
 
            }
@@ -229,7 +236,11 @@ public class Server implements Runnable{
                    }
                    break;
                case TIME:
-                   //TODO
+                   if(controller.playerExist) {
+                       controller.updateMediaTime(message.getTime());
+                       sendUpdateTime(message.getTime(), clientName);
+                   }
+                   break;
                case STATUS:
                    controller.showInMessage(message.getStringMessage());
                    break;
@@ -282,7 +293,7 @@ public class Server implements Runnable{
        private void closeConnection() {
            try {
                inStreams.remove(clientName);
-               outStreams.remove(clientName);
+               outStreamList.remove(clientName);
                inMessage.close();
                outMessage.close();
                connection.close();
