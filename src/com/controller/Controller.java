@@ -22,15 +22,12 @@ import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.control.Button;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
-
 import static com.server.Server.sendServerMessage;
 
 public class Controller {
@@ -64,7 +61,7 @@ public class Controller {
     public static MediaPlayer player;
     public static Status status;
     public static boolean playerExist = false;
-    public static final String SAMPLE =  "http://www.html5videoplayer.net/videos/toystory.mp4";
+    private static final String SAMPLE =  "http://www.html5videoplayer.net/videos/toystory.mp4";
     public static String currentLink;
 
     // Make a reference of controller instance
@@ -87,13 +84,8 @@ public class Controller {
     @FXML
     private void initialize() {
         // Set stage on close to turn off server
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                if(serverExist) {
-                    es.shutdownNow();
-                }
-            }
+        stage.setOnCloseRequest((event) -> {
+            if(serverExist) es.shutdownNow();
         });
 
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -106,20 +98,15 @@ public class Controller {
     // Add the link to list view
     public void addToList() {
         listView.getItems().add(linkField.getText());
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                linkField.setText("");
-            }
+        Platform.runLater(() -> {
+            linkField.setText("");
         });
     }
 
+    // Add link send from client
     public void addClientLink(final String link) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                listView.getItems().add(link);
-            }
+        Platform.runLater(() -> {
+            listView.getItems().add(link);
         });
     }
 
@@ -127,75 +114,53 @@ public class Controller {
     // Link required video format in the link
     // Load the SAMPLE link
     public void playMedia() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                String link = (String) listView.getSelectionModel().getSelectedItem();
-                //URL mediaURL = getClass().getResource("video.mp4");
-                //String mediaString = mediaURL.toExternalForm();
-                Media media;
-                if(link != null) {
-                    media = setMedia(link);
-                } else {
-                    media = setMedia();
-                }
-                if(playerExist) player.dispose();
-                player = new MediaPlayer(media);
-                playButton.setText(">");
-                playerExist = true;
-                setup(player);
-                mediaView.setMediaPlayer(player);
-                player.setAutoPlay(false);
-                showNotification("Opened Video");
-            }
+        Platform.runLater(() -> {
+            String link = (String) listView.getSelectionModel().getSelectedItem();
+            //URL mediaURL = getClass().getResource("video.mp4");
+            //String mediaString = mediaURL.toExternalForm();
+            Media media = setMedia(link);
+            if(playerExist) player.dispose();
+            player = new MediaPlayer(media);
+            playButton.setText(">");
+            playerExist = true;
+            setup(player);
+            mediaView.setMediaPlayer(player);
+            player.setAutoPlay(false);
+            showNotification("Opened Video");
         });
-    }
-
-    // Add SAMPLE link to media
-    private Media setMedia() {
-        currentLink = SAMPLE;
-        return new Media(SAMPLE);
     }
 
     // Add custom link to media
     private Media setMedia(String mediaLink) {
-        Media media = new Media(mediaLink);
-        currentLink = mediaLink;
-        return media;
+        if(mediaLink == null) {
+            currentLink = SAMPLE;
+            return new Media(SAMPLE);
+        } else {
+            currentLink = mediaLink;
+            return new Media(mediaLink);
+        }
     }
 
     // Initialized method for player
     // onPlaying, onPaused....
     public void setup(MediaPlayer player) {
-        player.setOnReady(new Runnable() {
-            @Override
-            public void run() {
-                status = Status.READY;
-                Server.sendPlayerStatus(status, currentLink);
-            }
+        player.setOnReady(() -> {
+            status = Status.READY;
+            Server.sendPlayerStatus(status, currentLink);
         });
 
-        player.currentTimeProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
+        player.currentTimeProperty().addListener((observable) -> {
                 updateTime();
-            }
         });
 
-        timeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        timeSlider.valueProperty().addListener((obser, oldValue, newValue) -> {
                 updateTime();
-            }
         });
 
-        player.setOnReady(new Runnable() {
-            @Override
-            public void run() {
-                status = Status.READY;
-                Server.sendPlayerStatus(status, currentLink);
-                duration = player.getMedia().getDuration();
-            }
+        player.setOnReady(() -> {
+            status = Status.READY;
+            Server.sendPlayerStatus(status, currentLink);
+            duration = player.getMedia().getDuration();
         });
     }
 
@@ -203,56 +168,47 @@ public class Controller {
     // Update time on slider change
     private void updateTime() {
         if(timeSlider != null) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    current = player.getCurrentTime();
-                    if(!timeSlider.isDisable()
-                            && duration.greaterThan(Duration.ZERO)
-                            && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue(current.divide(duration.toMillis()).toMillis() * 100);
-                    } else if (!timeSlider.isDisable() &&
-                                duration.greaterThan(Duration.ZERO) &&
-                                timeSlider.isValueChanging()) {
-                        double time = duration.toMillis() * timeSlider.getValue() / 100;
-                        player.seek(new Duration(time));
-                        Server.sendUpdateTime(time);
-                    }
+            Platform.runLater(() -> {
+                current = player.getCurrentTime();
+                if(!timeSlider.isDisable()
+                        && duration.greaterThan(Duration.ZERO)
+                        && !timeSlider.isValueChanging()) {
+                    timeSlider.setValue(current.divide(duration.toMillis()).toMillis() * 100);
+                } else if (!timeSlider.isDisable() &&
+                        duration.greaterThan(Duration.ZERO) &&
+                        timeSlider.isValueChanging()) {
+                    double time = duration.toMillis() * timeSlider.getValue() / 100;
+                    player.seek(new Duration(time));
+                    Server.sendUpdateTime(time);
                 }
             });
         }
     }
 
-    public static void updateMediaTime(double time) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+    public void updateMediaTime(double time) {
+        Platform.runLater(() -> {
                 if(duration.greaterThan(Duration.ZERO)) {
                     player.seek(new Duration(time));
                 }
-            }
         });
     }
 
     // Play media on button click
     public void pressPlayButton() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Status status = player.getStatus();
-                if(status == Status.HALTED || status == Status.UNKNOWN) {
-                    showNotification("Can't open video");
-                    return;
-                }
-                if(status == Status.READY || status == Status.PAUSED || status == Status.STOPPED) {
-                    player.play();
-                    playButton.setText("II");
-                    sendCommand("play");
-                } else {
-                    player.pause();
-                    playButton.setText(">");
-                    sendCommand("paused");
-                }
+        Platform.runLater(() -> {
+            Status status = player.getStatus();
+            if(status == Status.HALTED || status == Status.UNKNOWN) {
+                showNotification("Can't open video");
+                return;
+            }
+            if(status == Status.READY || status == Status.PAUSED || status == Status.STOPPED) {
+                player.play();
+                playButton.setText("II");
+                sendCommand("play");
+            } else {
+                player.pause();
+                playButton.setText(">");
+                sendCommand("paused");
             }
         });
     }
@@ -273,37 +229,29 @@ public class Controller {
 
     // Show message from client to server
     public void showInMessage(String mess) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                message.appendText(mess + "\n");
-            }
+        Platform.runLater(() -> {
+            message.appendText(mess + "\n");
         });
     }
 
     // Show message sent to client
     public void showOutMessage() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                message.appendText(serverName + ": " + userIn.getText() + "\n");
-                userIn.setText("");
-            }
+        Platform.runLater(() -> {
+            message.appendText(serverName + ": " + userIn.getText() + "\n");
+            userIn.setText("");
         });
     }
 
     // Show general necessary message in text area
     public void showNotification(String mess) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+        Platform.runLater(() -> {
                 message.appendText(mess + "\n");
-            }
         });
     }
 
     // Send simple string message if serverExist is true
-    public void sendStringMessage() {
+    @FXML
+    private void sendStringMessage() {
         if(serverExist) {
             Message m = new Message();
             m.setType(Type.NORMAL);
@@ -330,8 +278,7 @@ public class Controller {
         if(!serverExist) {
             serverExist = true;
             Controller controller = getInstance();
-            Server server = new Server(5678, controller);
-            server.setServerName(serverName);
+            Server server = new Server(5678, controller, serverName);
             es = Executors.newFixedThreadPool(1);
             es.submit(server);
         }

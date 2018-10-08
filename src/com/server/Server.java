@@ -23,15 +23,15 @@ public class Server implements Runnable{
    private static Controller controller;
    public static String serverName = "Server";
    public static OutStreamList outStreamList;
-   public static Map<String, ObjectOutputStream> outStreams;
    public static Map<String, ObjectInputStream> inStreams;
    private final AtomicBoolean running = new AtomicBoolean(true);
 
    // setup the server
-   public Server (int port, Controller controller) {
+   public Server (int port, Controller controller, String serverName) {
       this.controller = controller;
-      outStreamList = new OutStreamList(new HashMap<String, ObjectOutputStream>());
-      inStreams = new HashMap<String, ObjectInputStream>();
+      this.serverName = serverName;
+      outStreamList = new OutStreamList(new HashMap<>());
+      inStreams = new HashMap<>();
       try {
          controller.showNotification("Setting up server...");
          server = new ServerSocket(port);
@@ -51,10 +51,8 @@ public class Server implements Runnable{
        }
    }
 
-   public static void setServerName(String name) {
-       serverName = name;
-   }
-
+   // Wait for connection indefinitely
+   // Create new thread for each connection
    public void waitConnection() throws IOException {
        while(running.get()) {
            connection = server.accept();
